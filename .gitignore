@@ -1,42 +1,12 @@
-# --- Python ---
 __pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.pdb
 *.so
 
-# --- Environnements virtuels ---
-venv/
-.env/
-.env
-*.env
 
-# --- Django ---
-*.log
 *.pot
-*.pyc
 db.sqlite3
-media/
-staticfiles/
-static/
-
-# --- Migrations compilées ---
-*/migrations/__pycache__/
-*/migrations/*.pyc
 
 
-# --- IDE / Éditeurs ---
-.vscode/
-.idea/
-*.swp
 
-# --- OS ---
-.DS_Store
-Thumbs.db
 
-# --- Tests ---
-.coverage
-htmlcov/
-pytest_cache/
+
 
