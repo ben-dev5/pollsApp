@@ -3,28 +3,24 @@ from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
 from polls.repositories.question_repository import QuestionRepository
 from polls.models import Choice
+from django.views import generic
+from polls.models import Question
 
-def index(request):
-    repo = QuestionRepository()
-    latest_question_list = repo.get_latest()
-    context = {
-        "latest_question_list": latest_question_list
-    }
-    return render(request, "polls/index.html", context)
-def detail(request, question_id):
-    repo = QuestionRepository()
-    try:
-        question = repo.get_by_id(question_id)
-    except Exception:
-        raise Http404("Question does not exist")
-    return render(request, "polls/detail.html", {"question": question})
-def results(request, question_id):
-    repo = QuestionRepository()
-    try:
-        question = repo.get_by_id(question_id)
-    except Exception:
-        raise Http404("Question does not exist")
-    return render(request, "polls/results.html", {"question": question})
+class IndexView(generic.ListView):
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
+
+    def get_queryset(self):
+        repo = QuestionRepository()
+        return repo.get_latest()
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = "polls/detail.html"
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = "polls/results.html"
 
 def vote(request, question_id):
     repo = QuestionRepository()
