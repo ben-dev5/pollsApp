@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 import datetime
 import django.utils.timezone as timezone
@@ -9,7 +10,11 @@ class Question(models.Model):
     # fonction pour représentation visuelle
     def __str__(self):
         return self.question_text
-
+    @admin.display(
+        boolean=True,
+        ordering=("pub_date",),
+        description="Published recently?",
+    )
     # fonction de vérification de l'actualité de la date
     def was_published_recently(self):
             now = timezone.now()
