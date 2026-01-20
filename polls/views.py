@@ -12,14 +12,14 @@ def index(request):
 
 def detail(request, question_id):
     service = PollService()
-    question = service.repo.get_by_id(question_id)
+    question = service.get_by_id(question_id)
     if question.pub_date > timezone.now():
         raise Http404("Question not published yet")
     return render(request, 'polls/detail.html', {'question': question})
 
 def results(request, question_id):
     service = PollService()
-    question = service.repo.get_by_id(question_id)
+    question = service.get_by_id(question_id)
     return render(request, 'polls/results.html', {'question': question})
 
 def vote(request, question_id):
